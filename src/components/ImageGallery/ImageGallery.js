@@ -4,21 +4,21 @@ import ImageGalleryItem from "../ImageGalleryItem";
 import Spinner from "../Loader";
 import PropTypes from "prop-types";
 
-const ImageGallery = ({ error, gallery, status, onClick }) => {
+export default function ImageGallery ({ error, gallery, status, onClick }) {
   const onImageClick = (imageURL, alt) => {
     onClick(imageURL, alt);
   };
 
-  if (status === "idle") {
+  if (status === 'idle') {
     return <p className={s.text}>Enter keyword for image search</p>;
   }
-  if (status === "pending") {
+  if (status === 'pending') {
     return <Spinner />;
   }
-  if (status === "rejected") {
+  if (status === 'rejected') {
     return <h2>{error.message}</h2>;
   }
-  if (status === "resolved") {
+  if (status === 'resolved') {
     return (
       <ul className={s.ImageGallery}>
         {gallery.map(({ id, tags, webformatURL, largeImageURL }) => (
@@ -34,9 +34,7 @@ const ImageGallery = ({ error, gallery, status, onClick }) => {
       </ul>
     );
   }
-};
-
-export default ImageGallery;
+}
 
 ImageGallery.propTypes = {
   onClick: PropTypes.func.isRequired,

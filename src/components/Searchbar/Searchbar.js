@@ -1,26 +1,25 @@
-import React, { Component } from "react";
+import React from "react";
 import s from "./Searchbar.module.css";
 
-class Searchbar extends Component {
-  handleNameChange = (e) => {
-    this.props.onSearch(e.currentTarget.value.toLowerCase());
+export default function Searchbar({ onSubmit, onSearch, search }) {
+  const handleNameChange = (e) => {
+    onSearch(e.currentTarget.value.toLowerCase());
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (this.props.search.trim() === "") {
+    if (search.trim() === "") {
       alert("Enter keyword please");
       return;
     }
 
-    this.props.onSubmit(this.props.search);
-    this.props.onSearch("");
+    onSubmit(search);
+    onSearch("");
   };
 
-  render() {
     return (
       <header className={s.Searchbar}>
-        <form className={s.SearchForm} onSubmit={this.handleSubmit}>
+        <form className={s.SearchForm} onSubmit={handleSubmit}>
           <button className={s.SearchFormButton} type="submit">
             <span className={s.SearchFormButtonLabel}>Search</span>
           </button>
@@ -30,14 +29,11 @@ class Searchbar extends Component {
             type="text"
             autoComplete="off"
             autoFocus
-            value={this.props.search}
-            onChange={this.handleNameChange}
+            value={search}
+            onChange={handleNameChange}
             placeholder="Search images and photos"
           />
         </form>
       </header>
     );
-  }
 }
-
-export default Searchbar;
